@@ -8,6 +8,7 @@ let produtos = [
 
 let pedidos = [];
 
+
 function listarMenu(callback) {
     let texto = "Cardápio:\n\n";
 
@@ -19,6 +20,7 @@ function listarMenu(callback) {
 
     if (callback) callback();
 }
+
 
 function listarPedidos() {
     if (pedidos.length === 0) {
@@ -39,6 +41,7 @@ function listarPedidos() {
 
     alert(texto);
 }
+
 
 function cadastrarPedido(indiceProduto, quantidade, callback) {
     const produto = produtos[indiceProduto];
@@ -62,33 +65,36 @@ function cadastrarPedido(indiceProduto, quantidade, callback) {
     if (callback) callback();
 }
 
+
 function iniciar() {
-    listarMenu(() => {
-        let continuar = true;
+    let continuar = true;
 
-        while (continuar) {
-            let opcao = parseInt(prompt("Digite o número do produto:"));
+    while (continuar) {
 
-            if (isNaN(opcao) || opcao < 1 || opcao > produtos.length) {
-                alert("Opção inválida.");
-                continue;
-            }
+        
+        listarMenu(() => {});
 
-            let quantidade = parseInt(prompt("Digite a quantidade:"));
+        let opcao = parseInt(prompt("Digite o número do produto:"));
 
-            if (isNaN(quantidade) || quantidade <= 0) {
-                alert("Quantidade inválida.");
-                continue;
-            }
-
-            cadastrarPedido(opcao - 1, quantidade, listarPedidos);
-
-            let resposta = prompt("Deseja fazer outro pedido? (s/n)");
-            continuar = resposta.toLowerCase() === "s";
+        if (isNaN(opcao) || opcao < 1 || opcao > produtos.length) {
+            alert("Opção inválida.");
+            continue;
         }
 
-        alert("Sistema encerrado.");
-    });
+        let quantidade = parseInt(prompt("Digite a quantidade:"));
+
+        if (isNaN(quantidade) || quantidade <= 0) {
+            alert("Quantidade inválida.");
+            continue;
+        }
+
+        cadastrarPedido(opcao - 1, quantidade, listarPedidos);
+
+        let resposta = prompt("Deseja fazer outro pedido? (s/n)");
+        continuar = resposta.toLowerCase() === "s";
+    }
+
+    alert("Sistema encerrado.");
 }
 
 iniciar();
